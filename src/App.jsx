@@ -1,29 +1,26 @@
-// #region imports 
-import { useState } from 'react';
-import './App.css'
-import { MessageForm } from './MessageForm.jsx';
-import { MessageList } from './MessageList.jsx';
-// #endregion
-
-const DataLoader = () => {
-  return (
-    <h1 className="title">Chat application</h1>
-  );
-};
+// #region imports
+import { useState } from "react";
+import "./App.css";
+import { MessageForm } from "./MessageForm.jsx";
+import { MessageList } from "./MessageList.jsx";
+import { WebSocketLoader } from "./WebSocket.jsx";
+import { ChatRoom } from "./ChatRoom.jsx";
 
 export function App() {
   const [messages, setMessages] = useState([]);
-
+  const [rooms, setRooms] = useState([]);
   function saveData(message) {
-    // update messages here
+    setMessages((messages) => [message, ...messages]);
+  }
+  function saveOldData(messages) {
+    setMessages(messages);
   }
 
   return (
     <section className="section content">
-      <DataLoader onData={saveData} />
+      <WebSocketLoader onData={saveData} onOldData={saveOldData} />
 
       <MessageForm />
-      <MessageList messages={messages} />
     </section>
-  )
+  );
 }
