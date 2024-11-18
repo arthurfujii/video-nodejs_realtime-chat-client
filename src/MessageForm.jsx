@@ -1,59 +1,39 @@
-import { useState } from "react";
-import axios from "axios";
+import { useContext, useRef } from "react";
+import { DispatchContext, StatesContext } from "./Context/contextProvider";
 
-const API_BASE_URL = "http://127.0.0.1:5000";
-
-function sendMessage(text) {
-  return axios.post(`${API_BASE_URL}/messages`, { text });
-}
-
-function sendUser(user) {
-  return axios.post(`${API_BASE_URL}/users`, { user });
-}
+const WS_URL = "ws://localhost:5000";
 
 export const MessageForm = () => {
-  const [text, setText] = useState("");
-  const [author, setAuthor] = useState("");
-  const [room, setRoom] = useState("");
+  const { user } = useContext(StatesContext);
+  const dispatch = useContext(DispatchContext);
+  const socket = new WebSocket(WS_URL);
+  const messageRef = useRef(null);
+
+  const sendMessage = (e) => {
+    e.preventDefault();
+    const msg = {
+      author: user,
+      text: messageRef.current.value,
+      time: new Intl.DateTimeFormat("pt-BR", {
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+      }).format(new Date()),
+    };
+    // dispatch({ type: "setMessage", payload: msg });
+    socket.send(JSON.stringify(msg));
+  };
 
   return (
-    <>
-      <div className="container">
-        <div className="box">
-          <form className="field">
-            <div className="control has-icons-left has-icons-right">
-              <input
-                className="input"
-                type="text"
-                placeholder="Enter a username"
-                value={author}
-                onChange={(event) => setAuthor(event.target.value)}
-              />
-              <span className="icon is-small is-left">
-                <i className="fas fa-user"></i>
-              </span>
-            </div>
-            <button className="button">OK</button>
-          </form>
-          <form
-            className="field is-horizontal"
-            onSubmit={async (event) => {
-              event.preventDefault();
-              await sendMessage(text);
-              setText("");
-            }}
-          >
-            <input
-              type="text"
-              className="input"
-              placeholder="Enter a message"
-              value={text}
-              onChange={(event) => setText(event.target.value)}
-            />
-            <button className="button">Send</button>
-          </form>
-        </div>
-      </div>
-    </>
+    <form className="field is-horizontal" onSubmit={sendMessage}>
+      <input
+        type="text"
+        className="input"
+        placeholder="Enter a message"
+        ref={messageRef}
+        required
+      />
+      <button className="button">Send</button>
+    </form>
   );
 };

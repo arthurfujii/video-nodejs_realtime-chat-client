@@ -32,7 +32,7 @@ export function WebSocketLoader({ onData, onOldData }) {
 
   return (
     <div className="container">
-      <h1 className="title">Server Sent Events</h1>
+      <h1 className="title">Chat App</h1>
     </div>
   );
 }
