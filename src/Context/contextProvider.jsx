@@ -1,21 +1,14 @@
 import { createContext, useReducer } from "react";
 
 const initialStates = {
-  room: "",
-  rooms: [],
   message: {},
   messages: [],
   user: "",
   users: [],
-  isEditingUser: false,
 };
 
 const reducer = (states, action) => {
   switch (action.type) {
-    case "setRooms":
-      return { ...states, rooms: action.payload };
-    case "setRoom":
-      return { ...states, rooms: [action.payload, ...states.rooms] };
     case "setMessages":
       return { ...states, messages: action.payload };
     case "setMessage":
@@ -24,8 +17,6 @@ const reducer = (states, action) => {
       return { ...states, users: action.payload };
     case "setUser":
       return { ...states, users: [action.payload, ...states.users] };
-    case "setIsEditingUser":
-      return { ...states, isEditingUser: action.payload };
     default:
       return states;
   }

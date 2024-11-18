@@ -1,11 +1,10 @@
 import { useContext, useRef } from "react";
-import { DispatchContext, StatesContext } from "./Context/contextProvider";
+import { StatesContext } from "./Context/contextProvider";
 
 const WS_URL = "ws://localhost:5000";
 
 export const MessageForm = () => {
   const { user } = useContext(StatesContext);
-  const dispatch = useContext(DispatchContext);
   const socket = new WebSocket(WS_URL);
   const messageRef = useRef(null);
 
@@ -20,8 +19,9 @@ export const MessageForm = () => {
         second: "numeric",
       }).format(new Date()),
     };
-    // dispatch({ type: "setMessage", payload: msg });
     socket.send(JSON.stringify(msg));
+    messageRef.current.value = "";
+    messageRef.current.focus()
   };
 
   return (

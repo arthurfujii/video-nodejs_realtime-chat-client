@@ -8,7 +8,6 @@ export const UserForm = () => {
   const dispatch = useContext(DispatchContext);
   const { user } = useContext(StatesContext);
   const userRef = useRef(null);
-  const [error, setError] = useState("");
 
   const onUserSubmit = (e) => {
     e.preventDefault();

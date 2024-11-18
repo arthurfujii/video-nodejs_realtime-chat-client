@@ -7,15 +7,7 @@ const WS_URL = "ws://localhost:5000";
 export const MessageList = () => {
   const { messages } = useContext(StatesContext);
   const dispatch = useContext(DispatchContext);
-
-
   const socket = new WebSocket(WS_URL);
-  socket.onmessage = (event) => {
-    const message = event.data;
-
-    console.log(message);
-    dispatch({ type: "setMessage", payload: message });
-  };
 
   useEffect(() => {
     axios
@@ -24,10 +16,15 @@ export const MessageList = () => {
         dispatch({ type: "setMessages", payload: msgsFromServer.data });
       })
       .catch((error) => console.log(error));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-
+    socket.onmessage = async (event) => {
+      const message = JSON.parse(event.data);
+      dispatch({ type: "setMessage", payload: message });
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
