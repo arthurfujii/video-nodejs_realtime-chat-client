@@ -3,8 +3,10 @@ import { createContext, useReducer } from "react";
 const initialStates = {
   message: {},
   messages: [],
-  user: "",
   users: [],
+  currentUser: {},
+  rooms: [],
+  currentRoom: {},
 };
 
 const reducer = (states, action) => {
@@ -13,10 +15,14 @@ const reducer = (states, action) => {
       return { ...states, messages: action.payload };
     case "setMessage":
       return { ...states, messages: [action.payload, ...states.messages] };
+    case "setRooms":
+      return { ...states, rooms: action.payload };
+    case "setCurrentRoom":
+      return { ...states, currentRoom: action.payload };
     case "setUsers":
       return { ...states, users: action.payload };
-    case "setUser":
-      return { ...states, users: [action.payload, ...states.users] };
+    case "setCurrentUser":
+      return { ...states, currentUser: action.payload };
     default:
       return states;
   }

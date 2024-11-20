@@ -4,20 +4,15 @@ import { StatesContext } from "./Context/contextProvider";
 const WS_URL = "ws://localhost:5000";
 
 export const MessageForm = () => {
-  const { user } = useContext(StatesContext);
+  const { currentUser } = useContext(StatesContext);
   const socket = new WebSocket(WS_URL);
   const messageRef = useRef(null);
 
   const sendMessage = (e) => {
     e.preventDefault();
     const msg = {
-      author: user,
+      author: currentUser,
       text: messageRef.current.value,
-      time: new Intl.DateTimeFormat("pt-BR", {
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-      }).format(new Date()),
     };
     socket.send(JSON.stringify(msg));
     messageRef.current.value = "";

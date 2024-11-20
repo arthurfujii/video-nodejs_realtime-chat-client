@@ -1,10 +1,19 @@
+import { useContext } from "react";
+import { MessageForm } from "./MessageForm";
 import { MessageList } from "./MessageList";
-export const ChatRoom = ({ messages, room }) => {
+import { StatesContext } from "./Context/contextProvider";
+export const ChatRoom = () => {
+  const { messages, currentRoom } = useContext(StatesContext);
+
   return (
     <div className="container">
-      <h1 className="title">Chat Room: {room}</h1>
-
-      <MessageList messages={messages} />
+      <div className="box">
+        <p className="title">Chat Room: {currentRoom.roomName}</p>
+        <MessageList />
+      </div>
+      <div className="box">
+        <MessageForm />
+      </div>
     </div>
   );
 };
