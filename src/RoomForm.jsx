@@ -1,5 +1,4 @@
 import { useContext, useRef, useState } from "react";
-import { EventEmitter } from "events";
 import { DispatchContext, StatesContext } from "./Context/contextProvider";
 import axios from "axios";
 const API_BASE_URL = "http://127.0.0.1:5000";

@@ -3,7 +3,7 @@ import { MessageForm } from "./MessageForm";
 import { MessageList } from "./MessageList";
 import { StatesContext } from "./Context/contextProvider";
 export const ChatRoom = () => {
-  const { messages, currentRoom } = useContext(StatesContext);
+  const { currentRoom } = useContext(StatesContext);
 
   return (
     <div className="container">

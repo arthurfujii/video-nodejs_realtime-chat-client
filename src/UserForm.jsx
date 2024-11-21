@@ -41,6 +41,7 @@ export const UserForm = () => {
         dispatch({ type: "setUsers", payload: usersFromServer.data });
       })
       .catch((error) => console.log(error));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

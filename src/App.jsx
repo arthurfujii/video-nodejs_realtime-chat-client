@@ -3,8 +3,6 @@ import "bulma/css/bulma.css";
 import "bulma-list/css/bulma-list.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "./App.css";
-import { MessageForm } from "./MessageForm.jsx";
-import { MessageList } from "./MessageList.jsx";
 import { UserForm } from "./UserForm.jsx";
 import { RoomForm } from "./RoomForm.jsx";
 import { RoomsList } from "./RoomsList.jsx";
@@ -20,7 +18,7 @@ export function App() {
           <RoomForm />
           <RoomsList />
         </div>
-          <ChatRoom />
+        <ChatRoom />
       </div>
     </>
   );
